@@ -157,40 +157,40 @@ export const shortcutSettingsComponent = Vue.extend({
                         <table class="table is-striped is-fullwidth" v-if="config.shortcutOptions.shortcuts.length > 0">
                             <thead>
                                 <tr>
+                                    <th class="has-text-centered">{{ translations.shortcutSettingsTableEdit }}</th>
                                     <th>{{ translations.shortcutSettingsTableType }}</th>
                                     <th>{{ translations.shortcutSettingsTableName }}</th>
-                                    <th class="is-expanded">{{ translations.shortcutSettingsTableExecutionArgument }}</th>
                                     <th>{{ translations.shortcutSettingsTableDescription }}</th>
-                                    <th class="has-text-centered">{{ translations.shortcutSettingsNeedsUserConfirmation }}</th>
                                     <th>{{ translations.shortcutSettingsTableTags }}</th>
+                                    <th class="is-expanded">{{ translations.shortcutSettingsTableExecutionArgument }}</th>
+                                    <th class="has-text-centered">{{ translations.shortcutSettingsNeedsUserConfirmation }}</th>
                                     <th class="has-text-centered">{{ translations.shortcutSettingsTableIcon }}</th>
-                                    <th class="has-text-centered">{{ translations.shortcutSettingsTableEdit }}</th>
                                     <th class="has-text-centered">{{ translations.shortcutSettingsTableDelete }}</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr v-for="(shortcut, index) in config.shortcutOptions.shortcuts">
+                                    <td class="has-text-centered">
+                                        <button class="button" @click="editShortcut(index)">
+                                            <span class="icon"><i class="fas fa-edit"></i></span>
+                                        </button>
+                                    </td>
                                     <td>
                                         <span class="tag" :class="getShortcutTypeClass(shortcut.type)">
                                             <span class="icon"><i :class="getShortcutTypeIconClass(shortcut.type)"></i></span>
                                         </span>
                                     </td>
                                     <td>{{ shortcut.name }}</td>
-                                    <td>{{ shortcut.executionArgument }}</td>
                                     <td>{{ shortcut.description }}</td>
-                                    <td class="has-text-centered"><i v-if="shortcut.needsUserConfirmationBeforeExecution" class="fas fa-check"></i></td>
                                     <td>
                                         <div v-if="shortcut.tags.length > 0" class="tags">
                                             <span v-for="tag in shortcut.tags" class="tag is-light">{{ tag }}</span>
                                         </div>
                                     </td>
+                                    <td>{{ shortcut.executionArgument }}</td>
+                                    <td class="has-text-centered"><i v-if="shortcut.needsUserConfirmationBeforeExecution" class="fas fa-check"></i></td>
                                     <td class="has-text-centered">
                                         <icon :icon="shortcut.icon" :defaulticon="getDefaultIcon(shortcut)"></icon>
-                                    </td>
-                                    <td class="has-text-centered">
-                                        <button class="button" @click="editShortcut(index)">
-                                            <span class="icon"><i class="fas fa-edit"></i></span>
-                                        </button>
                                     </td>
                                     <td class="has-text-centered">
                                         <button class="button is-danger" @click="deleteShortcut(index)">
