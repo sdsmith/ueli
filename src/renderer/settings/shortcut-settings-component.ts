@@ -24,6 +24,12 @@ export const shortcutSettingsComponent = Vue.extend({
             visible: false,
         };
     },
+    created() {
+        // Sort shortcuts before they are displayed.
+        // Needed only if the user has an existing file that is unsorted either due to not having this change or being modified manually.
+        const config: UserConfigOptions = this.config;
+        sortInPlaceShortcutOptions(config.shortcutOptions);
+    },
     methods: {
         addButtonClick() {
             vueEventDispatcher.$emit(
