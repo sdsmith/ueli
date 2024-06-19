@@ -137,6 +137,12 @@ export const shortcutSettingsComponent = Vue.extend({
             <p class="settings__setting-description" v-html="translations.shortcutSettingsDescription"></p>
             <div class="settings__setting-content">
                 <div v-if="!config.shortcutOptions.isEnabled" class="settings__setting-disabled-overlay"></div>
+                <div>
+                    <button class="button is-success" @click="addButtonClick">
+                        <span class="icon"><i class="fas fa-plus"></i></span>
+                        <span>{{ translations.shortcutSettingsAddShortcut }}</span>
+                    </button>
+                </div>
                 <div class="settings__setting-content-item box">
                     <div class="table-container">
                         <table class="table is-striped is-fullwidth" v-if="config.shortcutOptions.shortcuts.length > 0">
@@ -185,12 +191,6 @@ export const shortcutSettingsComponent = Vue.extend({
                                 </tr>
                             </tbody>
                         </table>
-                    </div>
-                    <div>
-                        <button class="button is-success" @click="addButtonClick">
-                            <span class="icon"><i class="fas fa-plus"></i></span>
-                            <span>{{ translations.shortcutSettingsAddShortcut }}</span>
-                        </button>
                     </div>
                 </div>
             </div>
