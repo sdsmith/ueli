@@ -3,6 +3,7 @@ import { ShortcutType } from "./shortcut-type";
 import { IconType } from "../../../common/icon/icon-type";
 import { isValidIcon } from "../../../common/icon/icon-helpers";
 import { defaultShortcutIcon, defaultTerminalIcon, defaultUrlIcon } from "../../../common/icon/default-icons";
+import { ShortcutOptions } from "../../../common/config/shortcuts-options";
 
 export const defaultNewShortcut: Shortcut = {
     description: "",
@@ -59,6 +60,12 @@ export function getDefaultShortcutIcon(shortcut: Shortcut) {
         default:
             return defaultShortcutIcon;
     }
+}
+
+export function sortInPlaceShortcutOptions(shortcutOptions: ShortcutOptions) {
+    shortcutOptions.shortcuts.sort((a, b) => {
+        return a.name.localeCompare(b.name);
+    })
 }
 
 function isValidShortcutUrl(url: string): boolean {

@@ -7,6 +7,7 @@ import { UserConfigOptions } from "../../common/config/user-config-options";
 import {
     defaultNewShortcut,
     getDefaultShortcutIcon,
+    sortInPlaceShortcutOptions
 } from "../../main/plugins/shortcuts-search-plugin/shortcut-helpers";
 import { Shortcut } from "../../main/plugins/shortcuts-search-plugin/shortcut";
 import { ShortcutType } from "../../main/plugins/shortcuts-search-plugin/shortcut-type";
@@ -34,16 +35,18 @@ export const shortcutSettingsComponent = Vue.extend({
         addShortcut(shortcut: Shortcut) {
             const config: UserConfigOptions = this.config;
             config.shortcutOptions.shortcuts.push(deepCopy(shortcut));
+            sortInPlaceShortcutOptions(config.shortcutOptions);
             this.updateConfig();
         },
-        deleteShortcut(id: number) {
+        deleteShortcut(index: number) {
             const config: UserConfigOptions = this.config;
-            config.shortcutOptions.shortcuts.splice(id, 1);
+            config.shortcutOptions.shortcuts.splice(index, 1);
             this.updateConfig();
         },
         updateShortcut(shortcut: Shortcut, index: number) {
             const config: UserConfigOptions = deepCopy(this.config);
             config.shortcutOptions.shortcuts[index] = deepCopy(shortcut);
+            sortInPlaceShortcutOptions(config.shortcutOptions);
             this.config = deepCopy(config);
             this.updateConfig();
         },
