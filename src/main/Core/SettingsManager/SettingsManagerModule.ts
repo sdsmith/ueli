@@ -27,6 +27,11 @@ export class SettingsManagerModule {
         );
 
         ipcMain.on(
+            "getSettingsFile",
+            (event) => (event.returnValue = dependencyRegistry.get("SettingsFile").path),
+        );
+
+        ipcMain.on(
             "getSettingValue",
             (
                 event,

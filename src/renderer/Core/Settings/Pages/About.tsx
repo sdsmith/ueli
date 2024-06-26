@@ -7,6 +7,7 @@ export const About = () => {
     const { contextBridge } = useContextBridge();
 
     const { electronVersion, nodeJsVersion, v8Version, version } = contextBridge.getAboutUeli();
+    const settingsFile = contextBridge.getSettingsFile();
 
     return (
         <SettingGroupList>
@@ -15,6 +16,9 @@ export const About = () => {
                 <Setting label="Electron" control={<>{electronVersion}</>} />
                 <Setting label="Node.js" control={<>{nodeJsVersion}</>} />
                 <Setting label="V8" control={<>{v8Version}</>} />
+            </SettingGroup>
+            <SettingGroup title="Misc">
+                <Setting label="Settings file" control={<>{settingsFile}</>} />
             </SettingGroup>
         </SettingGroupList>
     );
