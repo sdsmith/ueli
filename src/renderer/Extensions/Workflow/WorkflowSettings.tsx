@@ -1,7 +1,7 @@
 import { useExtensionSetting } from "@Core/Hooks";
 import { SettingGroup } from "@Core/Settings/SettingGroup";
 import { SettingGroupList } from "@Core/Settings/SettingGroupList";
-import type { Workflow } from "@common/Extensions/Workflow";
+import { Workflow, sortWorkflows } from "@common/Extensions/Workflow";
 import {
     Body1Strong,
     Button,
@@ -38,6 +38,7 @@ export const WorkflowSettings = () => {
         const index = workflows.findIndex((w) => w.id === workflow.id);
         const newWorkflows = [...workflows];
         newWorkflows[index] = workflow;
+        sortWorkflows(newWorkflows);
         setWorkflows(newWorkflows);
     };
 
