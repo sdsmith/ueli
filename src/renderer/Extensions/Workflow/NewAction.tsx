@@ -5,13 +5,14 @@ import {
     AccordionHeader,
     AccordionItem,
     AccordionPanel,
+    AccordionToggleEventHandler,
     Body1Strong,
     Button,
     Dropdown,
     Field,
     Option,
 } from "@fluentui/react-components";
-import { AddRegular } from "@fluentui/react-icons";
+import { AddRegular, DismissRegular } from "@fluentui/react-icons";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { NewActionExecuteCommand } from "./NewActionExecuteCommand";
@@ -48,6 +49,7 @@ export const NewAction = ({ add }: NewActionProps) => {
     const { t } = useTranslation("extension[Workflow]");
 
     const [newAction, setNewAction] = useState<WorkflowAction<unknown>>(generateNewAction());
+    const [openItems, setOpenItems] = useState<string[]>([]);
 
     const setNewActionHandlerId = (handlerId: string) => setNewAction({ ...newAction, handlerId });
 
@@ -55,11 +57,18 @@ export const NewAction = ({ add }: NewActionProps) => {
 
     const setNewActionArgs = (args: unknown) => setNewAction({ ...newAction, args });
 
+    const handleNewActionAccordionToggle: AccordionToggleEventHandler<string> = (_, data) => {
+        setOpenItems(data.openItems);
+    }
+
+    const newActionAccordionVal = "newAction";
+    const closeNewActionAccordion = () => { setOpenItems(openItems.filter((item) => item !== newActionAccordionVal)) };
+
     const handlerIds = ["OpenFile", "OpenUrl", "OpenTerminal", "ExecuteCommand"];
 
     return (
-        <Accordion collapsible>
-            <AccordionItem value="newAction">
+        <Accordion openItems={openItems} onToggle={handleNewActionAccordionToggle} collapsible>
+            <AccordionItem value={newActionAccordionVal}>
                 <AccordionHeader>
                     <div style={{ display: "flex", flexDirection: "row", alignItems: "center", gap: 5 }}>
                         <Body1Strong>{t("newAction")}</Body1Strong>
@@ -108,7 +117,7 @@ export const NewAction = ({ add }: NewActionProps) => {
                             <NewActionExecuteCommand args={newAction.args} setArgs={setNewActionArgs} />
                         )}
 
-                        <div>
+                        <div style={{ display: "flex", flexDirection: "row", gap: 5 }}>
                             <Button
                                 size="small"
                                 icon={<AddRegular fontSize={14} />}
@@ -118,6 +127,16 @@ export const NewAction = ({ add }: NewActionProps) => {
                                 }}
                             >
                                 {t("addAction")}
+                            </Button>
+                            <Button
+                                size="small"
+                                icon={<DismissRegular fontSize={14} />}
+                                onClick={() => {
+                                    closeNewActionAccordion();
+                                    setNewAction(generateNewAction());
+                                }}
+                            >
+                                {t("cancel")}
                             </Button>
                         </div>
                     </div>
